@@ -1,21 +1,23 @@
 import "./App.css";
-import React, { useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { Navbar } from "./pages/Navbar";
+import { Home } from "./pages/Home";
+import { Menu } from "./pages/Menu";
+import { Contact } from "./pages/Contact";
 
 function App() {
-  const [catFact, setCatFact] = React.useState("");
-  const fetchData = () => {
-    fetch("https://catfact.ninja/fact")
-      .then((resp) => resp.json())
-      .then((data) => {
-        setCatFact(data.fact);
-      });
-  };
-  useEffect(fetchData, []);
-
   return (
     <div className="App">
-      <button onClick={fetchData}>Generate cat fact</button>
-      <p> {catFact} </p>
+      <Router>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/menu" element={<Menu />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="*" element={<h1>THIS IS AN ERROR PAGE</h1>} />
+        </Routes>
+        <footer>This is footer</footer>
+      </Router>
     </div>
   );
 }
